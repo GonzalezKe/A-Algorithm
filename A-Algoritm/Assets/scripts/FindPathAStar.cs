@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class PathMarker {
 
@@ -121,7 +122,8 @@ public class FindPathAStar : MonoBehaviour {
             values[1].text = "H: " + h.ToString("0.00");
             values[2].text = "F: " + f.ToString("0.00");
 
-            if (!UpdateMarker(neighbour, g, h, f, thisNode)) {
+            if (!UpdateMarker(neighbour, g, h, f, thisNode)) 
+            {
 
                 open.Add(new PathMarker(neighbour, g, h, f, pathBlock, thisNode));
             }
@@ -173,9 +175,11 @@ public class FindPathAStar : MonoBehaviour {
 
         while (!startNode.Equals(begin) && begin != null)
         {
-            Instantiate(pathP, new Vector3(begin.location.x * maze.scale, 0, BeginSearch().location.z * maze.scale), Quaternion.identity);
+            Instantiate(pathP, new Vector3(begin.location.x * maze.scale, 0, begin.location.z * maze.scale), Quaternion.identity);
             begin = begin.parent;
         }
+
+        Instantiate(pathP, new Vector3(startNode.location.x * maze.scale, 0, startNode.location.z * maze.scale), Quaternion.identity);
     }
 
     void Update() {
